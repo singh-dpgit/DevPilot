@@ -42,7 +42,14 @@ DEVPILOT/
         │               ├── auth.js       # GitHub OAuth login redirect, session check, and logout
         │               └── app.js        # Main UI logic (repo dashboard, indexing poll, RAG chat)
         └── test/
-            └── java/devPilot/backend/
+            └── java/devPilot/backend/services/
+                |____ai/
+                |     |__CodeContextRetrieverTest.java
+                |____indexing/
+                |       |__CodeChunkerTest.java
+                |       |__CodeFileFilter.java
+                |       |__RepoIndexingServiceTest.java
+                |
                 └── BackendApplicationTests.java
 ```
 
