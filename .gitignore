@@ -1,0 +1,19 @@
+# Byte-compiled / optimized / build files
+target/
+*.class
+*.jar
+*.war
+*.ear
+hs_err_pid*.log
+
+# Environment & Secrets
+.env
+.env.local
+.env.*.local
+
+# IDE & OS files
+.idea/
+.vscode/
+*.iml
+.DS_Store
+Thumbs.db

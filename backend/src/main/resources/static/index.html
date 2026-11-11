@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevPilot — GitHub Repository Assistant</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <header class="navbar">
+        <a href="#" id="brand-link" class="brand">&gt;_ DevPilot</a>
+        <div id="user-nav" class="user-nav hidden">
+            <img id="user-avatar" class="avatar hidden" src="" alt="Avatar">
+            <span id="user-name" class="user-name"></span>
+            <button type="button" id="logout-btn" class="btn btn-outline btn-sm">Log out</button>
+        </div>
+    </header>
+
+    <div id="alert-banner" class="alert-banner hidden" role="alert">
+        <span id="alert-text"></span>
+        <button type="button" id="alert-close" class="alert-close" aria-label="Close">&times;</button>
+    </div>
+
+    <main class="container">
+
+        <!-- 1. LOADING VIEW -->
+        <section id="loading-view" class="card center-box">
+            <p id="loading-text" class="muted">Checking your session...</p>
+        </section>
+
+        <!-- 2. LOGIN VIEW -->
+        <section id="login-view" class="card center-box hidden">
+            <h1>Sign in to DevPilot</h1>
+            <p class="muted">Connect GitHub to index your repositories and chat with your code.</p>
+            <div id="login-error" class="error-box hidden" role="alert"></div>
+            <button type="button" id="login-btn" class="btn btn-primary btn-lg">Continue with GitHub</button>
+        </section>
+
+        <!-- 3. REPOSITORY DASHBOARD VIEW -->
+        <section id="dashboard-view" class="hidden">
+            <div class="card toolbar">
+                <div>
+                    <h2>Your Repositories</h2>
+                    <p id="repo-stats" class="muted small">Loading repositories...</p>
+                </div>
+                <div class="toolbar-controls">
+                    <input type="search" id="search-input" class="input" placeholder="Search repos...">
+                    <select id="status-filter" class="input">
+                        <option value="ALL">All Statuses</option>
+                        <option value="READY">Ready</option>
+                        <option value="INDEXING">Indexing</option>
+                        <option value="PENDING">Not Indexed</option>
+                        <option value="FAILED">Failed</option>
+                    </select>
+                    <button type="button" id="sync-btn" class="btn btn-primary">Sync from GitHub</button>
+                </div>
+            </div>
+
+            <div id="repos-state" class="card center-box hidden">
+                <p id="repos-state-text" class="muted"></p>
+                <button type="button" id="retry-repos-btn" class="btn btn-primary hidden">Try Again</button>
+            </div>
+
+            <div id="repos-grid" class="repos-grid"></div>
+        </section>
+
+        <!-- 4. REPOSITORY CHAT & INDEXING VIEW -->
+        <section id="chat-view" class="hidden">
+            <div class="card chat-header">
+                <div class="chat-header-left">
+                    <button type="button" id="back-btn" class="btn btn-outline btn-sm">&larr; Back to Repos</button>
+                    <div>
+                        <div class="row-gap">
+                            <strong id="chat-repo-title">owner/repo</strong>
+                            <span id="chat-repo-badge" class="badge">READY</span>
+                        </div>
+                        <p id="chat-repo-meta" class="muted small"></p>
+                    </div>
+                </div>
+                <div class="row-gap">
+                    <a id="chat-github-link" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm">GitHub &nearr;</a>
+                    <button type="button" id="reindex-btn" class="btn btn-outline btn-sm">Re-index</button>
+                </div>
+            </div>
+
+            <!-- Shown when repository is PENDING, INDEXING, or FAILED -->
+            <div id="indexing-panel" class="card center-box hidden">
+                <h3 id="indexing-title">Repository Not Indexed</h3>
+                <p id="indexing-desc" class="muted"></p>
+                <div id="progress-wrap" class="progress-wrap hidden">
+                    <div class="progress-track"><div id="progress-bar" class="progress-fill"></div></div>
+                    <span id="progress-text" class="muted small">0%</span>
+                </div>
+                <div id="indexing-error" class="error-box hidden"></div>
+                <button type="button" id="start-index-btn" class="btn btn-primary">Start Indexing</button>
+            </div>
+
+            <!-- Shown when repository is READY -->
+            <div id="chat-workspace" class="chat-layout hidden">
+                <aside class="card chat-sidebar">
+                    <div class="sidebar-top">
+                        <strong>Sessions</strong>
+                        <button type="button" id="new-session-btn" class="btn btn-primary btn-sm">+ New</button>
+                    </div>
+                    <ul id="session-list" class="session-list"></ul>
+                </aside>
+
+                <div class="card chat-main">
+                    <div id="messages-list" class="messages-list"></div>
+                    <div id="chat-error" class="error-box hidden"></div>
+                    <form id="chat-form" class="chat-form">
+                        <textarea id="chat-input" class="input chat-input" rows="2" placeholder="Ask about this repository (Enter to send)..." required></textarea>
+                        <button type="button" id="stop-btn" class="btn btn-outline hidden">Stop</button>
+                        <button type="submit" id="send-btn" class="btn btn-primary">Send</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="js/config.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
