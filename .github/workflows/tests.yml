@@ -3,10 +3,11 @@ name: DevPilot Tests
 
 on:
   push:
-    branches: [ master, main ]
-
+    branches:
+      - main
   pull_request:
-    branches: [ master, main ]
+    branches:
+      - main
 
 jobs:
   test:
@@ -14,10 +15,10 @@ jobs:
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
-      - name: Set up JDK
-        uses: actions/setup-java@v4
+      - name: Set up JDK 25
+        uses: actions/setup-java@v5
         with:
           java-version: '25'
           distribution: 'temurin'
